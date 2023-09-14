@@ -17,9 +17,12 @@ public class loginTestCases extends baseClass {
 	@Test(priority = 0)
 	public void verifyValidLogin() throws IOException, InterruptedException {
 
-		Thread.sleep(2000);
+	
 
 		loginPageObjects lpo = new loginPageObjects(driver);
+		
+		commonMethods.expWait(driver,lpo.enterUsername(), 10);
+		
 		lpo.enterUsername().sendKeys(Constants.username);
 		lpo.enterPassword().sendKeys(Constants.validPassword);
 		lpo.clickOnLogin().click();
@@ -40,7 +43,7 @@ public class loginTestCases extends baseClass {
 		lpo.enterPassword().sendKeys(Constants.invalidPAssword);
 		lpo.clickOnLogin().click();
 
-		Thread.sleep(5000);
+		commonMethods.expWait(driver,lpo.errorMessage(), 10);
 	
 		commonMethods.handleAssertion(lpo.errorMessage().getText(), Constants.invalidErrorExpectedText);
 
